@@ -1,26 +1,33 @@
 package ru.samsung.gamestudio;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
-
 public class MyGdxGame extends ApplicationAdapter {
 	SpriteBatch batch;
+	public OrthographicCamera camera;
 	Texture birdTexture;
 	int birdX = 0;
 	int birdY = 0;
 	int birdSpeed = 5;
+	public static final int SCR_WIDTH = 1280;
+	public static final int SCR_HEIGHT = 720;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		birdTexture = new Texture("bird0.png");
+		camera = new OrthographicCamera();
+		camera.setToOrtho(false, SCR_WIDTH, SCR_HEIGHT);
 
 	}
 
 	@Override
 	public void render () {
+		camera.update();
+		batch.setProjectionMatrix(camera.combined);
 		birdX += birdSpeed;
 		birdY += birdSpeed;
 		ScreenUtils.clear(1, 0, 0, 1);
